@@ -3,7 +3,9 @@ const Footer = () => {
     <div className="text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32">
       <div className="flex flex-wrap justify-between gap-12 md:gap-6">
         <div className="max-w-80">
-          <h1 className="text-3xl font-semibold text-[#212121]">FreshoMart</h1>
+          <div className="mb-4">
+            <img src="/FreshoMart Logo.png" alt="FreshoMart Logo" className="h-16 md:h-20 w-auto object-contain" />
+          </div>
           <p className="text-sm">
             Your one-stop solution for fresh groceries delivered right to your doorstep.
             We ensure quality products, fast delivery, and the best shopping experience
@@ -107,7 +109,7 @@ const Footer = () => {
       </div>
       <hr className="border-gray-300 mt-8" />
       <div className="flex flex-col md:flex-row gap-2 items-center justify-between py-5">
-        <p>© {new Date().getFullYear()} Brand. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} FreshoMart. All rights reserved.</p>
         <ul className="flex items-center gap-4">
           <li>
             <a href="#">Privacy</a>

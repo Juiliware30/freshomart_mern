@@ -166,7 +166,7 @@ const Navbar = () => {
 
       <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
         <Link to="/">
-          <h2 className="text-2xl font-bold text-primary">FreshoMart</h2>
+          <img src="/FreshoMart Logo.png" alt="FreshoMart Logo" className="h-16 md:h-20 w-auto object-contain" />
         </Link>
 
         {/* ── Desktop Menu ── */}
