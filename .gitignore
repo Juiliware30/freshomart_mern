@@ -1,0 +1,19 @@
+# env files (VERY IMPORTANT)
+.env
+backend/.env
+client/.env
+
+# dependencies
+node_modules
+
+# build
+dist
+dist-ssr
+
+# logs
+*.log
+
+# system
+.DS_Store
+.vscode
+.idea
