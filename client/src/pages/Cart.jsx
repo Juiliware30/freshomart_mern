@@ -61,6 +61,23 @@ const Cart = () => {
     }
   };
 
+  const deleteAddress = async (id) => {
+    try {
+      const { data } = await axios.delete(`/api/address/delete/${id}`);
+      if (data.success) {
+        toast.success(data.message);
+        getAddress();
+        if (selectedAddress?._id === id) {
+          setSelectedAddress(null);
+        }
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       getAddress();
@@ -262,9 +279,20 @@ const Cart = () => {
                             setSelectedAddress(addr);
                             setShowAddress(false);
                           }}
-                          className="px-4 py-3 text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-700 cursor-pointer transition-colors border-b last:border-0 border-gray-50"
+                          className="group flex items-center justify-between px-4 py-3 text-sm text-gray-600 hover:bg-emerald-50 hover:text-emerald-700 cursor-pointer transition-colors border-b last:border-0 border-gray-50"
                         >
-                          {addr.street}, {addr.city}
+                          <span className="truncate">
+                            {addr.street}, {addr.city}
+                          </span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteAddress(addr._id);
+                            }}
+                            className="p-1.5 text-red-400 hover:bg-red-100 rounded-lg transition-all opacity-0 group-hover:opacity-100"
+                          >
+                            <FiTrash2 className="text-sm" />
+                          </button>
                         </div>
                       ))}
                       <div
