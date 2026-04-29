@@ -41,15 +41,31 @@ const Address = () => {
     }
   }, []);
   return (
-    <div className="mt-12 flex flex-col md:flex-row gap-6 p-6 bg-gray-100 rounded-lg shadow-md">
-      {/* Left Side: Address Fields */}
-      <div className="flex-1 bg-white p-6 rounded-lg shadow">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">
+    <div className="mt-10 flex flex-col md:flex-row gap-6 p-2 rounded-lg">
+      {/* Left Side: Video */}
+      <div className="flex-1 flex items-center justify-center">
+        <div className="w-full max-w-md">
+          <video
+            src="/Location review.mp4"
+            className="w-full rounded-2xl"
+            autoPlay
+            loop
+            muted
+          ></video>
+          <p className="text-center text-gray-500 mt-4 font-medium">
+            Review your location details
+          </p>
+        </div>
+      </div>
+
+      {/* Right Side: Address Fields */}
+      <div className="flex-1 p-2 rounded-lg">
+        <h2 className="text-xl font-semibold text-gray-700 mb-2">
           Address Details
         </h2>
         <form
           onSubmit={submitHanlder}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 gap-2"
         >
           <div>
             <label className="block text-gray-600">First Name</label>
@@ -58,7 +74,7 @@ const Address = () => {
               name="firstName"
               value={address.firstName}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-1.5 border rounded-md"
               required
             />
           </div>
@@ -70,7 +86,7 @@ const Address = () => {
               name="lastName"
               value={address.lastName}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-1.5 border rounded-md"
               required
             />
           </div>
@@ -82,7 +98,7 @@ const Address = () => {
               name="email"
               value={address.email}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-1.5 border rounded-md"
               required
             />
           </div>
@@ -94,7 +110,7 @@ const Address = () => {
               name="street"
               value={address.street}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-1.5 border rounded-md"
               required
             />
           </div>
@@ -106,7 +122,7 @@ const Address = () => {
               name="city"
               value={address.city}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-1.5 border rounded-md"
               required
             />
           </div>
@@ -118,7 +134,7 @@ const Address = () => {
               name="state"
               value={address.state}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-1.5 border rounded-md"
               required
             />
           </div>
@@ -130,7 +146,7 @@ const Address = () => {
               name="zipCode"
               value={address.zipCode}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-1.5 border rounded-md"
               required
             />
           </div>
@@ -142,7 +158,7 @@ const Address = () => {
               name="country"
               value={address.country}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-1.5 border rounded-md"
               required
             />
           </div>
@@ -154,7 +170,7 @@ const Address = () => {
               name="phone"
               value={address.phone}
               onChange={handleChange}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-1.5 border rounded-md"
               required
             />
           </div>
@@ -162,21 +178,12 @@ const Address = () => {
           <div className="col-span-2">
             <button
               type="submit"
-              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-2 rounded-md"
+              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-1.5 rounded-md"
             >
               Save Address
             </button>
           </div>
         </form>
-      </div>
-
-      {/* Right Side: Image */}
-      <div className="flex-1 flex items-center justify-center">
-        <img
-          src={assets.add_address_iamge}
-          alt="Address Illustration"
-          className="w-full max-w-xs rounded-lg shadow-md"
-        />
       </div>
     </div>
   );
