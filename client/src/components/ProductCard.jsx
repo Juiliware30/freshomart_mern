@@ -17,7 +17,7 @@ const ProductCard = ({ product }) => {
         <div className="group cursor-pointer flex items-center justify-center px-2">
           <img
             className="group-hover:scale-105 transition max-w-26 md:max-w-36"
-            src={`http://localhost:5000/images/${product.image[0]}`}
+            src={product.image[0].startsWith('http') ? product.image[0] : `${import.meta.env.VITE_BACKEND_URL}/images/${product.image[0]}`}
             alt={product.name}
           />
         </div>

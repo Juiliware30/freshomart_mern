@@ -1,11 +1,21 @@
 import Product from "../models/product.model.js";
+import { v2 as cloudinary } from "cloudinary";
 
 // add product :/api/product/add
 export const addProduct = async (req, res) => {
   try {
     const { name, price, offerPrice, description, category, gstEnabled, gstPercentage, gstType } = req.body;
-    // const image = req.files?.map((file) => `/uploads/${file.filename}`);
-    const image = req.files?.map((file) => file.filename);
+    // upload images to cloudinary from buffer
+    const imagePromises = req.files?.map(async (file) => {
+      const b64 = Buffer.from(file.buffer).toString("base64");
+      let dataURI = "data:" + file.mimetype + ";base64," + b64;
+      const uploadResponse = await cloudinary.uploader.upload(dataURI, {
+        resource_type: "image",
+      });
+      return uploadResponse.secure_url;
+    });
+
+    const image = await Promise.all(imagePromises || []);
     if (
       !name ||
       !price ||
@@ -123,10 +133,17 @@ export const updateProduct = async (req, res) => {
       }
       positions = positions.map(Number);
 
-      req.files.forEach((file, i) => {
+      const uploadPromises = req.files.map(async (file, i) => {
+        const b64 = Buffer.from(file.buffer).toString("base64");
+        let dataURI = "data:" + file.mimetype + ";base64," + b64;
+        const uploadResponse = await cloudinary.uploader.upload(dataURI, {
+          resource_type: "image",
+        });
         const targetIndex = positions[i];
-        images[targetIndex] = file.filename;
+        images[targetIndex] = uploadResponse.secure_url;
       });
+
+      await Promise.all(uploadPromises);
     }
 
     updateData.image = images.filter(img => img !== null);

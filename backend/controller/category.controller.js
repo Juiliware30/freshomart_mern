@@ -11,8 +11,10 @@ export const addCategory = async (req, res) => {
             return res.status(400).json({ success: false, message: "Details missing" });
         }
 
-        // upload image to cloudinary
-        const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
+        // upload image to cloudinary from buffer
+        const b64 = Buffer.from(imageFile.buffer).toString("base64");
+        let dataURI = "data:" + imageFile.mimetype + ";base64," + b64;
+        const imageUpload = await cloudinary.uploader.upload(dataURI, {
             resource_type: "image",
         });
         const imageUrl = imageUpload.secure_url;
