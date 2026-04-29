@@ -58,6 +58,11 @@ app.use(express.json({ limit: "50mb" })); // supports base64 images
 // Static Files
 app.use("/images", express.static("uploads"));
 
+// Root Route
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+
 // API Routes
 app.use("/api/user", userRoutes);
 app.use("/api/seller", sellerRoutes);
