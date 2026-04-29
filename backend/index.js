@@ -27,7 +27,7 @@ const app = express();
     console.log("Connected to DB & Cloudinary");
   } catch (error) {
     console.error("Failed to initialize services:", error);
-    process.exit(1);
+    // Removed process.exit(1) to prevent crashing on Vercel
   }
 })();
 
