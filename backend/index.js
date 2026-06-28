@@ -67,6 +67,12 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
+// Ensure DB is connected before every request (critical for Vercel serverless)
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
+
 // API Routes
 app.use("/api/user", userRoutes);
 app.use("/api/seller", sellerRoutes);

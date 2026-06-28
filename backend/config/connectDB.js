@@ -1,11 +1,29 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
+
+// Cache the connection for serverless environments (Vercel)
+let cached = global.mongoose;
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
 
 export const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("MongoDB connected ");
-  } catch (error) {
-    console.error("Error connecting to MongoDB:", error);
-    // Removed process.exit(1) for Vercel compatibility
+  if (cached.conn) {
+    return cached.conn;
   }
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(process.env.MONGO_URI, {
+      bufferCommands: false,
+    }).then((mongoose) => {
+      console.log("MongoDB connected ");
+      return mongoose;
+    });
+  }
+  try {
+    cached.conn = await cached.promise;
+  } catch (error) {
+    cached.promise = null;
+    console.error("Error connecting to MongoDB:", error);
+  }
+  return cached.conn;
 };
+
