@@ -18,6 +18,10 @@ const SellerLogin = () => {
         password,
       });
       if (data.success) {
+        // Save token to localStorage for cross-origin Vercel deployments
+        if (data.token) {
+          localStorage.setItem("sellerToken", data.token);
+        }
         setIsSeller(true);
         navigate("/seller");
       } else {

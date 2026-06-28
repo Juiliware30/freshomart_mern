@@ -1,16 +1,18 @@
 import jwt from "jsonwebtoken";
 export const authSeller = async (req, res, next) => {
-  const { sellerToken } = req.cookies;
-  console.log("Seller token received:", sellerToken); // Debug log
-  
+  // Check cookie first, then fall back to Authorization header (for cross-origin Vercel deployments)
+  const { sellerToken: cookieToken } = req.cookies;
+  const authHeader = req.headers["authorization"];
+  const headerToken = authHeader && authHeader.startsWith("Bearer ") ? authHeader.split(" ")[1] : null;
+
+  const sellerToken = cookieToken || headerToken;
+
   if (!sellerToken) {
-    console.log("No seller token provided"); // Debug log
     return res.status(401).json({ message: "Unauthorized - No seller token", success: false });
   }
   
   try {
     const decoded = jwt.verify(sellerToken, process.env.JWT_SECRET);
-    console.log("Decoded seller token:", decoded); // Debug log
     
     if (decoded.email === process.env.SELLER_EMAIL) {
       return next();

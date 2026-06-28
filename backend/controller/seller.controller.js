@@ -19,7 +19,7 @@ export const sellerLogin = async (req, res) => {
       });
       return res
         .status(200)
-        .json({ message: "Login successful", success: true });
+        .json({ message: "Login successful", success: true, token });
     } else {
       return res
         .status(400)

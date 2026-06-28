@@ -7,9 +7,14 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 // Add interceptor to ensure credentials are sent with all requests
+// Also attach seller token from localStorage for cross-origin Vercel deployments
 axios.interceptors.request.use(
   (config) => {
     config.withCredentials = true;
+    const sellerToken = localStorage.getItem("sellerToken");
+    if (sellerToken) {
+      config.headers["Authorization"] = `Bearer ${sellerToken}`;
+    }
     return config;
   },
   (error) => {
@@ -53,9 +58,11 @@ export const AppContextProvider = ({ children }) => {
         setIsSeller(true);
       } else {
         setIsSeller(false);
+        localStorage.removeItem("sellerToken");
       }
     } catch (error) {
       setIsSeller(false);
+      localStorage.removeItem("sellerToken");
     }
   };
 
